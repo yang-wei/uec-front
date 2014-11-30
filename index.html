@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="calendarDemoApp" id="top">
+<head>
+    <title>AngularUI Calendar for AngularJS</title>
+    <link rel="icon" href="favicon.ico" />
+    <link rel="stylesheet" href="../bower_components/bootstrap-css/css/bootstrap.css" />
+    <link rel="stylesheet" href="../bower_components/fullcalendar/dist/fullcalendar.css">
+    <link rel="stylesheet" href="/assets/calendarDemo.css" />
+    <link rel="stylesheet" href="/bower_components/angular-datepicker/dist/index.css" />
+
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/jquery-ui/ui/jquery-ui.js"></script>
+    <script src="../bower_components/moment/moment.js"></script>
+
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.9.0.js"></script>
+    <script src="../bower_components/fullcalendar/dist/fullcalendar.js"></script>
+    <script src="../bower_components/fullcalendar/dist/gcal.js"></script>
+    <script src="../bower_components/angular-datepicker/dist/index.js"></script>
+    <script src="../src/calendar.js"></script>
+    <script src="/assets/calendarDemo.js"></script>
+</head>
+<body data-spy="scroll">
+<div role="main">
+    <div style="width:100%">
+        <section id="directives-calendar" ng-controller="CalendarCtrl">
+            <div class="well">
+                <div class="row-fluid">
+                    <div class="span3">
+                        <img src="/assets/uec.png" width="100%">
+                        <h3>多目的室使用状況</h3>
+                        <p>電気通信大学</p>
+                        <form ng-if="!editEvent" ng-submit="addEvent()">
+                          <div class="form-group">
+                            <label for="eventTitle">タイトル</label>
+                            <input type="text" ng-model="newEvent.title" class="form-control" id="eventTitle">
+                          </div>
+                          <div class="form-group">
+                            <label for="eventOrg">サークル</label>
+                            <input type="text" ng-model="newEvent.club" class="form-control" id="eventOrg">
+                          </div>
+                          <div class="form-group">
+                            <label for="startTime">開始時間</label>
+                            <input type="datetime" date-time ng-model="newEvent.start" max-view="date" min-view="hours" class="form-control">
+                          </div>
+                          <div class="form-group">
+                            <label for="endTime">終了時間</label>
+                            <input type="datetime" date-time ng-model="newEvent.end" max-view="date" min-view="hours" class="form-control">
+                          </div>
+                        <div class="btn-group calTools">
+                          <button type="submit" class="btn btn-primary">
+                            追加
+                          </button>
+                        </div>
+                        </form>
+
+                        <form ng-show="editEvent">
+                          <div class="form-group">
+                            <label for="eventTitle">タイトル</label>
+                            <b>{{eventToBeEdit.title}}</b>
+                          </div>
+                          <div class="form-group">
+                            <label for="eventOrg">サークル</label>
+                            <b>{{eventToBeEdit.club}}</b>
+                          </div>
+                          <div class="form-group">
+                            <label for="startTime">開始時間</label>
+                            <b>{{eventToBeEdit.start | date: 'short' }}</b>
+                          </div>
+                          <div class="form-group">
+                            <label for="endTime">終了時間</label>
+                            <b>{{eventToBeEdit.end | date: 'short'}}</b>
+                          </div>
+                        <div class="btn-group calTools">
+                          <button type="submit" ng-click="showAddNewEventFrom()" class="btn btn-primary">
+                            イベント作成
+                          </button>
+                        </div>
+                        </form> 
+
+                    </div>
+
+                    <div class="span9">
+                            <div select="renderCalender(myCalendar1);">
+                            <div class="calendar" ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+    </body>
+</html>
